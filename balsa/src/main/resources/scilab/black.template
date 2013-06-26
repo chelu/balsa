@@ -1,0 +1,6 @@
+clf()
+xtitle("${H}");
+s = poly(0, "s");
+H = ${H};
+sl = syslin("c", H);
+black(sl);

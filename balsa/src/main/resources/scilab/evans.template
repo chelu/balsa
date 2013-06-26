@@ -1,0 +1,10 @@
+clf();
+s = poly(0, "s");
+H = ${H};
+sl = syslin("c", H);
+evans(sl,100);
+sgrid();
+[Ki,s]=kpure(sl); // Gains that give pure imaginary closed loop poles
+plot([real(s) real(s)],[imag(s) -imag(s)],'*r');
+[Kr,s]=krac2(sl);
+datatipToggle();

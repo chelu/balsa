@@ -1,0 +1,9 @@
+
+clf();
+xtitle("${H}");
+s = poly(0, "s");
+H = ${H};
+sl = syslin("c", H);
+t = 0:0.1:100;
+y = csim("step", t, sl);
+plot(t, y);
