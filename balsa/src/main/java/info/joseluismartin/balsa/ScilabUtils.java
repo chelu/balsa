@@ -23,6 +23,7 @@ import java.awt.event.ComponentEvent;
 import org.scilab.modules.graphic_objects.CallGraphicController;
 import org.scilab.modules.graphic_objects.ScilabNativeView;
 import org.scilab.modules.graphic_objects.axes.Axes;
+import org.scilab.modules.graphic_objects.axes.AxesContainer;
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicModel.GraphicModel;
@@ -74,8 +75,8 @@ public class ScilabUtils {
 	 * @return new Figure
 	 */
 	public static Figure createFigure(int id) {
-		String figureModelUID = GraphicModel.getFigureModel().getIdentifier();
-		String newFID = GraphicController.getController().createUID().toString();
+		Integer figureModelUID = GraphicModel.getFigureModel().getIdentifier();
+		Integer newFID = GraphicController.getController().createUID();
 		GraphicModel.getModel().cloneObject(figureModelUID, newFID);
 		Figure figure = (Figure) GraphicModel.getModel().getObjectFromId(newFID);
 		figure.setId(id);
@@ -91,8 +92,8 @@ public class ScilabUtils {
 	 */
 	public static Axes createAxes() {
 		final int[] props = new int[] {GraphicObjectProperties.__GO_X_AXIS_LABEL__, GraphicObjectProperties.__GO_Y_AXIS_LABEL__, GraphicObjectProperties.__GO_Z_AXIS_LABEL__, GraphicObjectProperties.__GO_TITLE__};
-		String newAID = GraphicController.getController().createUID().toString();
-		String axesModelUID = GraphicModel.getAxesModel().getIdentifier();
+		Integer newAID = GraphicController.getController().createUID();
+		Integer axesModelUID = GraphicModel.getAxesModel().getIdentifier();
 		GraphicModel.getModel().cloneObject(axesModelUID, newAID);
 
 		ScilabNativeView.ScilabNativeView__createObject(newAID);
@@ -100,12 +101,14 @@ public class ScilabUtils {
 		
 		 for (Integer type : props) {
 	            final double[] position = new double[] {1, 1, 1};
-	            String modelLabelUID = CallGraphicController.getGraphicObjectPropertyAsString(axesModelUID, type);
-	            String pobjUID = GraphicController.getController().createUID().toString();
+	            Integer modelLabelUID = CallGraphicController
+	            			.getGraphicObjectPropertyAsIntegerVector(axesModelUID, type)[0];
+	            Integer pobjUID = GraphicController.getController().createUID();
 	            GraphicModel.getModel().cloneObject(modelLabelUID, pobjUID);
 	            CallGraphicController.setGraphicObjectProperty(pobjUID, GraphicObjectProperties.__GO_POSITION__, position);
 
-	            int autoPosition = CallGraphicController.getGraphicObjectPropertyAsBoolean(modelLabelUID, GraphicObjectProperties.__GO_AUTO_POSITION__);
+	            int autoPosition = CallGraphicController
+	            		.getGraphicObjectPropertyAsBooleanVector(modelLabelUID, GraphicObjectProperties.__GO_AUTO_POSITION__)[0];
 	            CallGraphicController.setGraphicObjectProperty(pobjUID, GraphicObjectProperties.__GO_AUTO_POSITION__, autoPosition == 1);
 
 	            CallGraphicController.setGraphicObjectProperty(newAID, type, pobjUID);
@@ -124,20 +127,19 @@ public class ScilabUtils {
 	 */
 	public static SwingScilabCanvas createPlotCanvas(Figure figure) {
 		
-		SwingScilabCanvas canvas = new SwingScilabCanvas(figure.getId(),  figure);
+		SwingScilabCanvas canvas = new SwingScilabCanvas(figure);
 		/* Manage figure_size property */
 		canvas.addComponentListener(new ComponentAdapter() {
 			
 	            public void componentResized(ComponentEvent ce) {
 	            	
 	            	SwingScilabCanvas c = (SwingScilabCanvas) ce.getSource();
-	            	Figure f = c.getFigure();
+	            	Figure f = (Figure ) c.getFigure();
 	            	/* Update the figure_size property */
 	            	Integer[] newSize = new Integer[] { c.getSize().width, c.getSize().height };
 	            	f.setSize(newSize);
 	            	if (f.getAutoResize())
-	            		c.getFigure().setAxesSize(newSize);
-	            	
+	            		f.setAxesSize(newSize);
 	            	
 	            	if (f.getChildren() != null && f.getChildren().length > 0)
 	            		GraphicController.getController().objectUpdate(f.getChildren()[0], 

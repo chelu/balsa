@@ -28,7 +28,7 @@ public class GenericLtiSystem implements LtiSystem {
 	private String name = "GeneriLTISystem";
 
 	public String getTransferFunction() {
-		return transferFunction;
+		return transferFunction.trim().replace("\n", "");
 	}
 
 	public void setTransferFunction(String transferFunction) {

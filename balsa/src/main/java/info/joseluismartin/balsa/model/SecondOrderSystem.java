@@ -33,7 +33,7 @@ public class SecondOrderSystem extends GenericLtiSystem {
 	public String getTransferFunction() {
 		double wn2 = wn * wn;
 		double doubleDeltaWn = 2 * delta * wn; 
-		String format = "%." + precision + "f";
+		String format = "(%." + precision + "f)";
 		
 		return String.format(Locale.US, 
 				format + " / (s^2 + " + format +  "* s + " + format + ")", k*wn2, doubleDeltaWn, wn2);

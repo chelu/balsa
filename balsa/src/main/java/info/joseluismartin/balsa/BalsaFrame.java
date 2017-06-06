@@ -46,7 +46,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 /**
+ * Balsa Application Frame
+ * 
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
+ * @since 1.0
  */
 @Component
 public class BalsaFrame extends JFrame {
@@ -56,8 +59,6 @@ public class BalsaFrame extends JFrame {
 	private SwingScilabCanvas plot;
 	private JTabbedPane systemTab = new JTabbedPane();
 	private MessageSourceWrapper messageSource = new MessageSourceWrapper();
-	private FirstOrderView fov = new FirstOrderView();
-	private SecondOrderView sov = new SecondOrderView();
 	private Solver solver = new ScilabSolver();
 	@Resource
 	private List<View<LtiSystem>> systems;
@@ -99,7 +100,7 @@ public class BalsaFrame extends JFrame {
 	 */
 	private void initSystemTab() {
 		for (View<LtiSystem> s : systems) {
-			systemTab.add(getMessage(s.getModel().getName()), s.getPanel());
+			this.systemTab.add(getMessage(s.getModel().getName()), s.getPanel());
 		}
 
 	}

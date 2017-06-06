@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 Jose Luis Martin
+ * Copyright (C) 2013 Jose Luis Martin
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -79,18 +79,12 @@ public class ScilabSolver implements Solver {
 		return "file://" + plotUri;
 	}
 
-	/* (non-Javadoc)
-	 * @see info.joseluismartin.balsa.Solver#bodePlot()
-	 */
 	public void bodePlot(LtiSystem system) {
 		Runnable runnable = new TemplateRunnable(BODE_TEMPLATE, system);
 		new Thread(runnable).start();
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see info.joseluismartin.balsa.Solver#nisqPlot()
-	 */
 	public void nyquistPlot(LtiSystem system) {
 		Runnable runnable = new TemplateRunnable(NISQ_TEMPLATE, system);
 		new Thread(runnable).start();
@@ -134,9 +128,6 @@ public class ScilabSolver implements Solver {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see info.joseluismartin.balsa.Solver#evansPlot(info.joseluismartin.balsa.model.System)
-	 */
 	public void evansPlot(LtiSystem system) {
 		new Thread(new TemplateRunnable("/scilab/evans.template", system)).start();
 		

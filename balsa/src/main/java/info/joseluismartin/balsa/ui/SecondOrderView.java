@@ -44,9 +44,9 @@ public class SecondOrderView extends  AbstractView<SecondOrderSystem> implements
 	private JTextField k = new JTextField();
 	private JTextField delta = new JTextField();
 	private JLabel transfer = new JLabel();
-	private JSlider wnSlider = new JSlider();
-	private JSlider kSlider = new JSlider();
-	private JSlider deltaSlider = new JSlider();
+	private JSlider wnSlider = new JSlider(-100, 100, 1);
+	private JSlider kSlider = new JSlider(-100, 100, 1);
+	private JSlider deltaSlider = new JSlider(-100, 100, 1);
 	
 	
 	
@@ -69,14 +69,13 @@ public class SecondOrderView extends  AbstractView<SecondOrderSystem> implements
 
 	@Override
 	protected JComponent buildPanel() {
-		wnSlider.addChangeListener(this);
-		kSlider.addChangeListener(this);
-		deltaSlider.addChangeListener(this);
+		this.wnSlider.addChangeListener(this);
+		this.kSlider.addChangeListener(this);
+		this.deltaSlider.addChangeListener(this);
 		
-		FormUtils.setBold(transfer);
+		FormUtils.setBold(this.transfer);
 		BoxFormBuilder fb = new BoxFormBuilder();
-		fb.setDebug(true);
-		
+		fb.setDebug(false);
 		fb.startBox();
 		fb.row();
 		fb.add(getMessage("TransferFunction"), transfer);
