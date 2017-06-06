@@ -31,9 +31,11 @@ import org.jdal.swing.AbstractView;
 import org.jdal.swing.ApplicationContextGuiFactory;
 import org.jdal.swing.form.BoxFormBuilder;
 import org.jdal.swing.form.FormUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class FirstOrderView extends AbstractView<FirstOrderSystem> implements ChangeListener {
 
 	private JTextField k = new JTextField();

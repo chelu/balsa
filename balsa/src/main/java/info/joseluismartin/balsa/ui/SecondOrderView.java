@@ -30,6 +30,7 @@ import javax.swing.event.ChangeListener;
 import org.jdal.swing.AbstractView;
 import org.jdal.swing.form.BoxFormBuilder;
 import org.jdal.swing.form.FormUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -38,6 +39,7 @@ import org.springframework.stereotype.Component;
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
 @Component
+@Scope("prototype")
 public class SecondOrderView extends  AbstractView<SecondOrderSystem> implements ChangeListener {
 	
 	private JTextField wn = new JTextField();

@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import org.jdal.swing.AbstractView;
 import org.jdal.swing.TitledSeparator;
 import org.jdal.swing.form.BoxFormBuilder;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Component;
  * @author Jose Luis Martin - (jlm@joseluismartin.info)
  */
 @Component
+@Scope("prototype")
 public class GenericLtiSystemView extends AbstractView<GenericLtiSystem> {
 	
 	private JTextArea transferFunction = new JTextArea();

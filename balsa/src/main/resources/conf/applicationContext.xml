@@ -16,10 +16,16 @@
 	
 	<swing:defaults />
 	
+	<bean id="controlView" class="info.joseluismartin.balsa.ui.ControlModelView" scope="prototype">
+		<property name="g" ref="genericLtiSystemView" />
+		<property name="control" ref="PIDView" />
+	</bean>
+	
 	<util:list id="systems" value-type="org.jdal.swing.AbstractView">
 		<ref bean="firstOrderView" />
 		<ref bean="secondOrderView" />
 		<ref bean="genericLtiSystemView" />
+		<ref bean="controlView" />
  	</util:list>
 	
 	
